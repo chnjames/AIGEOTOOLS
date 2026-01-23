@@ -1,0 +1,18 @@
+streamlit>=1.30,<2
+pandas>=2.0,<3
+plotly>=5.0,<6
+
+langchain-core==1.2.7
+langchain-community==0.4.1
+langchain-openai==1.1.7
+langchain-groq==1.1.1
+langchain-deepseek==1.0.1
+
+dashscope>=1.0,<2
+
+# 豆包（字节跳动）- 可选，需要时安装
+# pip install 'volcengine-python-sdk[ark]'
+
+# 文心一言（百度）- 可选，需要时安装
+# pip install qianfan
+# 或使用 langchain-community 的 QianfanChatEndpoint（需要 qianfan 包）

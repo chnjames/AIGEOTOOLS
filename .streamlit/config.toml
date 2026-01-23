@@ -1,0 +1,10 @@
+[theme]
+base="light"
+primaryColor="#2563EB"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F7FAFC"
+textColor="#1A202C"
+borderColor="#E2E8F0"
+baseRadius="10"
+buttonRadius="10"
+showSidebarBorder=true
