@@ -11,7 +11,7 @@
 - [x] **数据持久化（SQLite）** - 已完成
   - 关键词、文章、优化记录、验证结果自动保存
   - 历史记录查看功能（Tab5）
-  - 详见 `INTEGRATION_NOTES.md`
+  - 详见 `docs/implementation/INTEGRATION_NOTES.md`
 
 - [x] **AI 蒸馏词 - 托词工具** - 已完成
   - 支持三种生成模式：AI生成、托词工具、混合模式
@@ -20,26 +20,65 @@
   - LLM 润色功能（混合模式）
   - 自动去重和相似度过滤
 
-- [x] **收录平台扩展** - 已完成
-  - 新增豆包（字节跳动）支持
-  - 新增文心一言（百度）支持
+- [x] **收录平台扩展** - 已完成 ✅
+  - 支持 DeepSeek、OpenAI、通义千问、Groq、Moonshot、豆包（字节跳动）、文心一言（百度）
   - API Key 格式提示和验证
-  - 详见 `PLATFORM_SETUP.md`
+  - 详见 `docs/guides/PLATFORM_SETUP.md`
 
-- [x] **自媒体账号平台扩展** - 已完成
-  - 新增微信公众号（长文）支持
-  - 新增抖音图文（短内容）支持
-  - 新增百家号、网易号、企鹅号、简书支持
+- [x] **自媒体账号平台扩展** - 已完成 ✅
+  - 支持 **20个内容生成平台**：
+    1. 知乎（专业问答）
+    2. 小红书（生活种草）
+    3. CSDN（技术博客）
+    4. B站（视频脚本）
+    5. 头条号（资讯软文）
+    6. GitHub（README/文档）
+    7. 微信公众号（长文）
+    8. 抖音图文（短内容）
+    9. 百家号（资讯）
+    10. 网易号（资讯）
+    11. 企鹅号（资讯）
+    12. 简书（文艺）
+    13. 新浪博客（博客）
+    14. 新浪新闻（资讯）
+    15. 搜狐号（资讯）
+    16. QQ空间（社交）
+    17. 邦阅网（外贸）
+    18. 一点号（资讯）
+    19. 东方财富（财经）
+    20. 原创力文档（文档）
   - 每个平台都有专门的 Prompt 模板
   - 支持 Markdown 格式输出
 
-- [x] **AI 数据报表** - 已完成
+- [x] **AI 数据报表** - 已完成 ✅
   - 自动验证任务（使用历史关键词）
   - 提及率趋势图（按日期展示）
   - 平台贡献度分析（文章平台分布）
   - 关键词效果排名（Top 20）
   - 竞品对比分析（多维度对比）
   - 数据导出功能（CSV 格式）
+
+- [x] **高级功能** - 已完成 ✅
+  - E-E-A-T 评估与强化（`docs/features/docs/features/EEAT_FEATURE.md`）
+  - 话题集群生成（`docs/features/docs/features/TOPIC_CLUSTER_FEATURE.md`）
+  - JSON-LD Schema.org 生成（`docs/features/docs/features/JSON_LD_SCHEMA_FEATURE.md`）
+  - 内容质量评分（`docs/features/docs/features/CONTENT_SCORER_FEATURE.md`）
+  - 事实密度增强（`docs/features/docs/features/FACT_DENSITY_FEATURE.md`）
+  - 语义扩展（`docs/features/docs/features/SEMANTIC_EXPANSION_FEATURE.md`）
+  - 关键词挖掘（`docs/features/docs/features/KEYWORD_MINING_FEATURE.md`）
+  - 工作流自动化（`docs/features/docs/features/WORKFLOW_AUTOMATION_FEATURE.md`）
+  - 内容质量指标分析（`docs/features/docs/features/CONTENT_METRICS_FEATURE.md`）
+  - ROI 分析（`docs/features/docs/features/ROI_ANALYSIS_FEATURE.md`）
+  - 负面监控（`docs/features/docs/features/NEGATIVE_MONITOR_FEATURE.md`）
+  - 多模态提示生成（`docs/features/docs/features/MULTIMODAL_FEATURE.md`）
+  - 技术配置生成（`docs/features/docs/features/TECHNICAL_CONFIG_FEATURE.md`）
+  - 资源推荐（`docs/features/docs/features/RESOURCE_RECOMMENDER_FEATURE.md`）
+
+- [x] **平台同步功能** - 已完成 ✅
+  - GitHub API 发布
+  - 12个平台一键复制功能
+  - 发布记录跟踪
+  - 详见 `docs/implementation/IMPLEMENTATION_SUMMARY.md`
 
 ---
 
@@ -50,85 +89,48 @@
 
 ### 🔥 高优先级（核心功能增强）
 
-#### 1. 收录平台扩展
+#### 1. 更多平台 API 发布
 
-**当前支持：** DeepSeek, OpenAI, Tongyi, Groq, Moonshot
+**当前支持：** GitHub API 发布
 
 **待添加平台：**
-- 豆包（字节跳动）- ⭐ 高优先级（用户量大）
-- 文心一言（百度）- ⭐ 高优先级（用户量大）
-- 腾讯元宝 - 需确认 API 可用性
-- 纳米 - 需确认具体 API
+- 微信公众号 API 发布
+- B站 API 发布
+- 知乎 API 发布
+- CSDN API 发布
+- 百家号 API 发布
+- 企鹅号 API 发布
+- 网易号 API 发布
 
 **重要性分析：**
-- ✅ **直接影响 GEO 效果**：更多平台 = 更全面的验证覆盖
-- ✅ **提升验证准确性**：国内主流平台（豆包、文心一言）用户量大，验证结果更有参考价值
-- ✅ **实现成本低**：主要是 API 接入，技术难度不高
-
-**评估与优化建议：**
-- ⚠️ **需要优化**：
-  1. **API 接入优先级**：优先接入豆包、文心一言（用户量大）
-  2. **平台分类管理**：按平台类型分类（国内/国外、通用/专业）
-  3. **验证成本控制**：支持批量验证时的并发控制，避免 API 费用过高
+- ✅ **提升发布效率**：API 发布比手动复制更高效
+- ✅ **自动化流程**：支持批量发布和定时发布
+- ⚠️ **实现成本高**：需要各平台 API 接入，技术难度较高
 
 **实现建议：**
-- 在 `build_llm` 函数中扩展新平台支持
-- 在侧边栏配置中增加新平台选项
-- 添加平台可用性检测
+- 参考 GitHub 发布器实现模式
+- 逐步接入各平台 API
+- 详见 `docs/implementation/PLATFORM_SYNC_IMPLEMENTATION.md`
 
 ---
 
-#### 2. 自媒体账号平台扩展
-
-**当前支持：** 知乎、小红书、CSDN、B站、头条号、GitHub
-
-**待添加平台：**
-- 微信公众号 - ⭐ 高优先级（用户量大、影响力强）
-- 抖音图文 - ⭐ 高优先级（流量大）
-- 百家号 - 中优先级（百度生态）
-- 网易号 - 中优先级
-- 企鹅号 - 中优先级
-- 简书 - 低优先级
-
-**重要性分析：**
-- ✅ **扩大内容投放渠道**：更多平台 = 更多曝光机会
-- ✅ **提升品牌影响力**：微信公众号、抖音等平台用户量大
-- ✅ **实现成本中等**：主要是 Prompt 模板和格式转换
-
-**评估与优化建议：**
-- ⚠️ **需要优化**：
-  1. **平台特性差异**：
-     - 微信公众号：需要特殊格式（富文本、排版）
-     - 抖音图文：图片为主，文字为辅
-     - 百家号/网易号/企鹅号：可能有字数限制、格式要求
-  2. **内容适配策略**：
-     - 为每个平台创建专门的 Prompt 模板
-     - 支持平台特定的格式要求（如微信公众号的 Markdown 转 HTML）
-  3. **发布功能（可选）**：
-     - 初期只生成内容，后续可考虑接入各平台 API 实现自动发布
-
-**实现建议：**
-- 扩展 `platforms` 列表
-- 为每个平台创建专门的 Prompt 模板
-- 添加平台格式转换功能（如 Markdown → HTML）
-
----
-
-#### 3. 稿件记录（数据持久化）
+#### 2. 批量发布功能
 
 **功能描述：**
-- 保留所有的稿件记录
+- 批量发布多篇文章到多个平台
+- 发布队列管理
+- 定时发布功能
 
-**状态：** ✅ **已完成**
-- 已实现 SQLite 数据持久化
-- 支持关键词、文章、优化记录、验证结果的保存和查看
-- 详见 `INTEGRATION_NOTES.md`
+**状态：** ⏳ **部分实现**
+- ✅ 有发布记录功能
+- ❌ 无批量发布UI
+- ❌ 无发布队列管理
+- ❌ 无定时发布
 
-**后续扩展建议：**
-- 数据导出功能（CSV/Excel）
-- 数据搜索功能（按关键词搜索历史记录）
-- 更详细的统计分析
-- 数据备份功能
+**实现建议：**
+- 扩展平台同步模块
+- 添加批量发布UI
+- 实现发布队列和定时任务
 
 ---
 
@@ -279,7 +281,10 @@
 
 ## 🔗 相关文档
 
-- `INTEGRATION_NOTES.md` - SQLite 持久化集成说明
-- `STORAGE_GUIDE.md` - 数据持久化方案对比
-- `PLATFORM_SETUP.md` - 平台扩展安装说明（豆包、文心一言）
-- `data_storage.py` - 数据存储模块实现
+📚 **完整文档索引**：查看 [DOCS.md](DOCS.md) 获取所有文档的快速导航
+
+**主要文档**：
+- `docs/implementation/INTEGRATION_NOTES.md` - SQLite 持久化集成说明
+- `docs/guides/STORAGE_GUIDE.md` - 数据持久化方案对比
+- `docs/guides/PLATFORM_SETUP.md` - 平台扩展安装说明（豆包、文心一言）
+- `modules/data_storage.py` - 数据存储模块实现

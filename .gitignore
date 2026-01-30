@@ -30,3 +30,6 @@ Thumbs.db
 
 # 数据目录（如果使用JSON方式）
 data/
+
+# 本地敏感配置（不要提交到仓库）
+config.json

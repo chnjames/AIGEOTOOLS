@@ -74,7 +74,7 @@
 
 ### 1. 使用已封装好的 DataStorage 类
 
-我已经为你创建了 `data_storage.py`，提供了统一的接口：
+我已经为你创建了 `modules/data_storage.py`，提供了统一的接口：
 
 ```python
 from data_storage import DataStorage
@@ -97,7 +97,7 @@ stats = storage.get_stats("品牌名")
 
 ### 2. 最小改动集成
 
-在 `geo_tool.py` 中，只需要在关键位置添加几行保存代码：
+在 `modules/geo_tool.py` 中，只需要在关键位置添加几行保存代码：
 
 ```python
 # 文件顶部
@@ -187,8 +187,8 @@ with tab5:
 
 ## 下一步
 
-1. 查看 `data_storage.py` 了解实现细节
-2. 查看 `storage_example.py` 了解使用方法
-3. 在 `geo_tool.py` 中集成（参考上面的最小改动示例）
+1. 查看 `modules/data_storage.py` 了解实现细节
+2. 查看 `modules/storage_example.py` 了解使用方法
+3. 在 `modules/geo_tool.py` 中集成（参考上面的最小改动示例）
 
-需要我帮你直接集成到 `geo_tool.py` 吗？
+需要我帮你直接集成到 `modules/geo_tool.py` 吗？

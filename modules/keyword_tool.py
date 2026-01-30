@@ -156,11 +156,12 @@ class KeywordTool:
         # 限制润色数量，避免 API 调用过多
         keywords_to_polish = keywords[:max_polish]
         
+        # 构建品牌信息部分
+        brand_info = f"品牌：{brand}\n" if brand else ""
+        
         polish_prompt = f"""你是关键词优化专家。请将以下关键词润色为更自然、更符合用户搜索习惯的表达。
 
-{"品牌：" + brand if brand else ""}
-
-原始关键词列表：
+{brand_info}原始关键词列表：
 {json.dumps(keywords_to_polish, ensure_ascii=False, indent=2)}
 
 要求：

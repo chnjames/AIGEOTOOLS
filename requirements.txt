@@ -10,6 +10,10 @@ langchain-deepseek==1.0.1
 
 dashscope>=1.0,<2
 
+# 平台同步功能依赖
+httpx>=0.24.0
+pyperclip>=1.8.2
+
 # 豆包（字节跳动）- 可选，需要时安装
 # pip install 'volcengine-python-sdk[ark]'
 

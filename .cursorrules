@@ -1,0 +1,80 @@
+# Cursor Rules for GEO Tool Project
+
+## 📁 目录结构规范
+
+### 根目录文件规则
+
+**允许在根目录的文件**：
+- `README.md` - 项目主文档（必须）
+- `DOCS.md` - 文档索引（必须）
+- `geo_tool.py` - 主程序（必须）
+- `requirements.txt` - 依赖文件（必须）
+- `.gitignore` - Git配置（必须）
+- `.streamlit/` - Streamlit配置目录（必须）
+
+**禁止在根目录创建**：
+- ❌ 任何新的 `.md` 文档文件（除了 README.md 和 DOCS.md）
+- ❌ 任何功能模块 `.py` 文件（应放在 `modules/` 目录）
+- ❌ 任何工具脚本 `.py` 文件（应放在 `scripts/` 目录）
+
+### 文档文件位置规则
+
+**所有新文档必须创建在 `docs/` 的相应子目录中**：
+
+- **功能文档** → `docs/features/`
+  - 格式：`*_FEATURE.md`
+  - 示例：`docs/features/CONFIG_OPTIMIZER_FEATURE.md`
+
+- **分析报告** → `docs/analysis/`
+  - 格式：`*_ANALYSIS.md` 或 `*_REPORT.md`
+  - 示例：`docs/analysis/FEATURE_ANALYSIS.md`
+
+- **使用指南** → `docs/guides/`
+  - 格式：`*_GUIDE.md` 或相关文档
+  - 示例：`docs/guides/QUICK_START_GUIDE.md`
+
+- **实现文档** → `docs/implementation/`
+  - 格式：实现相关的文档
+  - 示例：`docs/implementation/IMPLEMENTATION_SUMMARY.md`
+
+### Python 文件位置规则
+
+- **功能模块** → `modules/` 目录
+  - 所有功能模块文件应放在 `modules/` 目录
+  - 导入方式：`from modules.xxx import Xxx`
+
+- **工具脚本** → `scripts/` 目录
+  - 所有工具脚本应放在 `scripts/` 目录
+  - 使用方式：`python scripts/script_name.py`
+
+- **主程序** → 根目录
+  - `geo_tool.py` 保留在根目录
+
+### 平台同步模块
+
+- **平台同步相关** → `platform_sync/` 目录
+  - 保持现有结构不变
+
+## 📝 创建新文件时的检查清单
+
+创建新文件前，请确认：
+
+- [ ] 如果是 `.md` 文档，是否放在了正确的 `docs/` 子目录？
+- [ ] 如果是功能模块 `.py` 文件，是否放在了 `modules/` 目录？
+- [ ] 如果是工具脚本 `.py` 文件，是否放在了 `scripts/` 目录？
+- [ ] 是否更新了 `DOCS.md` 中的文档索引（如果是新文档）？
+- [ ] 是否更新了相关的导入路径（如果是新模块）？
+
+## 🚫 禁止操作
+
+- ❌ 禁止在根目录创建新的 `.md` 文档（除了 README.md 和 DOCS.md）
+- ❌ 禁止在根目录创建功能模块 `.py` 文件
+- ❌ 禁止在根目录创建工具脚本 `.py` 文件
+- ❌ 禁止在根目录创建重复的文档文件
+
+## ✅ 推荐做法
+
+- ✅ 创建新文档时，先确定文档类型，然后放在对应的 `docs/` 子目录
+- ✅ 创建新模块时，放在 `modules/` 目录，并更新 `modules/__init__.py`
+- ✅ 创建新脚本时，放在 `scripts/` 目录
+- ✅ 更新 `DOCS.md` 添加新文档的索引链接

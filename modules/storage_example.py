@@ -4,7 +4,7 @@
 """
 
 # ==================== 方式1：SQLite（推荐，简单高效） ====================
-from data_storage import DataStorage
+from modules.data_storage import DataStorage
 
 # 初始化存储（SQLite方式，单文件数据库）
 storage = DataStorage(storage_type="sqlite", db_path="geo_data.db")
@@ -56,7 +56,7 @@ def get_stats_example(brand: str):
 在 geo_tool.py 中的集成方式：
 
 1. 在文件顶部添加：
-   from data_storage import DataStorage
+   from modules.data_storage import DataStorage
    storage = DataStorage(storage_type="sqlite", db_path="geo_data.db")
 
 2. 在关键词生成后保存：
