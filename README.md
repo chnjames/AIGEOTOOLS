@@ -305,3 +305,17 @@ geo_tool/
 
 **如果这个项目对您有帮助，请给一个 ⭐ Star 支持一下！**
 
+---
+
+## 👨‍💻 关于作者
+
+**一点一木（Grant Liu）** — 独立开发者 · 掘金LV.5（593K+阅读）· 2024人气作者No.91
+
+- 📝 掘金：[juejin.cn/user/1063982986187486](https://juejin.cn/user/1063982986187486)
+- 📱 公众号：**一点一木**
+- 🐙 GitHub：[github.com/chnjames](https://github.com/chnjames)
+- 🌐 博客：[chnjames.github.io/blogs](https://chnjames.github.io/blogs)
+- 🏗️ 更多作品：[echo-suno-writer](https://github.com/chnjames/echo-suno-writer) · [tradehot-skill](https://github.com/chnjames/tradehot-skill)
+
+> Work harder! Keep on!
+
