@@ -1,9 +1,11 @@
-# SQLite 数据库文件
+# ===== 数据库 =====
 *.db
 *.sqlite
 *.sqlite3
+data/
+backend/data/
 
-# Python
+# ===== Python =====
 __pycache__/
 *.py[cod]
 *$py.class
@@ -12,39 +14,56 @@ __pycache__/
 env/
 venv/
 ENV/
-.venv
+.venv/
+backend/.venv/
 *.egg-info/
-dist/
-build/
-.mypy_cache/
 .pytest_cache/
+.mypy_cache/
 
-# Streamlit
-.streamlit/secrets.toml
+# ===== Node / 前端 =====
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+frontend/tsconfig.node.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# IDE
+# ===== 上传文件 / 知识库 =====
+uploads/
+backend/uploads/
+knowledge_base/
+backend/knowledge_data/
+
+# ===== ChromaDB 向量数据 =====
+chroma/
+*.chroma/
+
+# ===== IDE =====
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 .cursor/
-.cursorrules
 
-# Environment
+# ===== 环境变量 / 敏感配置 =====
 .env
 .env.local
 .env.*.local
+config.json
+*.secret
 
-# OS
+# ===== OS =====
 .DS_Store
 Thumbs.db
 
-# 数据目录（如果使用JSON方式）
-data/
+# ===== Docker 数据卷（本地） =====
+docker-data/
 
-# 知识库数据
-knowledge_base/
-
-# 本地敏感配置（不要提交到仓库）
-config.json
+# ===== 日志 =====
+*.log
+logs/

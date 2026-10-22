@@ -331,7 +331,13 @@ with tabs[5]:  # 平台同步Tab
   - 选择 `repo` 权限
 2. **运行测试**：
   ```bash
-   streamlit run geo_tool.py
+  # 启动后端（在 backend/ 目录下）
+  cd backend
+  uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+  # 启动前端（在 frontend/ 目录下，另开一个终端）
+  cd frontend
+  npm run dev
   ```
 3. **测试流程**：
   - 配置GitHub账号

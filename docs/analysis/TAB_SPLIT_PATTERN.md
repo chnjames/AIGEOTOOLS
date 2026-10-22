@@ -1,12 +1,13 @@
 # Tab 拆分模式说明（基于 Tab1 / Tab2 实践）
 
-> 本文档描述当前项目中「关键词蒸馏」Tab 与「自动创作」Tab 的拆分方式，供后续 Tab3–Tab10 迁移时复用同一模式。
+> 本文档描述早期 Streamlit 版本中「关键词蒸馏」Tab 与「自动创作」Tab 的拆分方式，供历史参考。
+> 当前架构已迁移为 **FastAPI 后端 + React 前端**：原 Streamlit Tab 已拆分为 React 页面（`frontend/src/pages/`），业务逻辑由 FastAPI 服务层（`backend/app/services/`）提供。原 Streamlit 代码归档于 `legacy/streamlit/`。
 
 ## 一、项目与目录结构概览
 
 ```
 geo_tool/
-├── geo_tool.py              # Streamlit 主入口（唯一入口，streamlit run geo_tool.py）
+├── geo_tool.py              # FastAPI 后端 + React 前端（当前架构，原 Streamlit 主入口已废弃并归档至 legacy/streamlit/）
 ├── modules/
 │   ├── *.py                 # 业务模块（data_storage, keyword_tool, content_scorer, schema_generator 等）
 │   └── ui/

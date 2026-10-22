@@ -74,12 +74,24 @@ report = {
 
 ### 1. 配置 API Key
 
-在 `.streamlit/secrets.toml` 中添加：
+当前架构（FastAPI + React）下，API Key 通过两种方式配置：
 
-```toml
-[api_keys]
-perplexity = "pplx-xxxxxxxxxxxx"
+**方式 A：通过前端「设置」页面配置（推荐）**
+
+在前端「设置」（Settings）页面填写 Perplexity API Key，配置会持久化到数据库的 `app_config` 表中，由后端 `GET/PUT /api/v1/config` 接口管理。这种方式无需重启服务，且支持多 LLM 提供商统一管理。
+
+**方式 B：通过后端环境变量配置（`.env`）**
+
+在 `backend/.env` 文件中配置全局环境变量（如 API 认证、数据库连接等）：
+
+```env
+# 后端 API 认证密钥（留空则不启用认证）
+API_KEY=your-secret-api-key-here
+# 数据库连接
+DATABASE_URL=sqlite+aiosqlite:///./geo_data.db
 ```
+
+> 说明：LLM 提供商（含 Perplexity）的 API Key 推荐通过前端「设置」页面或 `PUT /api/v1/config` 接口配置，存储于 `app_config` 表；`.env` 仅用于服务级环境变量。早期 Streamlit 版本使用的 `.streamlit/secrets.toml` 已废弃。
 
 ### 2. 使用验证功能
 

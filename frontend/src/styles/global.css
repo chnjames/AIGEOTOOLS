@@ -1,0 +1,527 @@
+/* 声明 CSS 层级顺序：base(最低) → theme → components → utilities(最高)
+   此声明必须在使用任何 @layer 之前出现，确保层级优先级正确。
+   未分层( unlayered )样式优先级最高，用于项目自定义样式覆盖 Ant Design。 */
+@layer base, theme, components, utilities;
+
+/* ========== Design Tokens ========== */
+:root {
+  /* Brand */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+
+  /* Light theme */
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f4f5f7;
+  --bg-hover: #f0f1f3;
+
+  --border-light: #f0f0f0;
+  --border-default: #e5e7eb;
+  --border-strong: #d1d5db;
+
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
+  --text-inverse: #ffffff;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Accent（紫色，用于优化/验证等次级强调） */
+  --accent-50: #f5f3ff;
+  --accent-500: #7c3aed;
+  --accent-600: #6d28d9;
+
+  /* Semantic background tints */
+  --bg-success: #f0fdf4;
+  --bg-success-border: #bbf7d0;
+  --bg-warning: #fffbeb;
+  --bg-warning-border: #fde68a;
+  --bg-error: #fef2f2;
+  --bg-error-border: #fecaca;
+  --bg-info: #eff6ff;
+  --bg-info-border: #bfdbfe;
+
+  /* Code block (dark editor style, consistent across themes) */
+  --bg-code: #1e1e1e;
+  --text-code: #d4d4d4;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-width: 200px;
+  --sidebar-collapsed-width: 56px;
+  --header-height: 50px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-none: none;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --transition-fast: 0.15s ease;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-primary: #0f1117;
+  --bg-secondary: #161922;
+  --bg-tertiary: #1e2130;
+  --bg-hover: #252838;
+
+  --border-light: #1e2130;
+  --border-default: #2a2d3e;
+  --border-strong: #3a3d52;
+
+  --text-primary: #e2e4e9;
+  --text-secondary: #9ca0b0;
+  --text-tertiary: #6b6f82;
+  --text-inverse: #0f1117;
+
+  --brand-50: #1a2744;
+  --brand-100: #1e3a5f;
+  --brand-500: #3b82f6;
+  --brand-600: #60a5fa;
+
+  --accent-50: #1e1633;
+  --accent-500: #8b5cf6;
+  --accent-600: #a78bfa;
+
+  --sidebar-bg: #161922;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ========== Reset & Base ========== */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: var(--font-size-base);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', 'Helvetica Neue', Arial,
+      'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+  }
+
+  a { color: var(--brand-600); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  #root { min-height: 100vh; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+}
+
+/* ========== Layout ==========
+   注：颜色、圆角、字号等 Token 由 App.tsx ConfigProvider 统一管理。
+   此处仅保留布局结构相关样式（定位、flex、边距等）。 */
+.app-layout {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.app-sider {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-light);
+  position: fixed;
+  height: 100vh;
+  z-index: 100;
+  overflow: hidden;
+  transition: width var(--transition-fast);
+}
+
+.app-sider .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-sider-logo {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-md);
+  gap: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.app-sider-logo .logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--brand-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+
+.app-sider-logo .logo-text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Menu：ConfigProvider 已处理颜色/高度，此处仅处理结构 */
+.app-menu {
+  border-right: none;
+  background: transparent;
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-xs);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* SubMenu 标题样式 */
+.app-menu .ant-menu-submenu-title {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  margin-top: 8px;
+}
+
+/* 第一个 SubMenu 不需要顶部间距 */
+.app-menu .ant-menu-item:first-child {
+  margin-bottom: 4px;
+}
+
+/* 工作台独立项与 SubMenu 之间的分隔 */
+.app-menu .ant-menu-item:first-child + .ant-menu-submenu {
+  border-top: 1px solid var(--border-light);
+  padding-top: 4px;
+  margin-top: 4px;
+}
+
+.app-main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  transition: margin-left var(--transition-fast);
+}
+
+.app-main.collapsed {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+.app-header {
+  height: var(--header-height);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  line-height: var(--header-height);
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.app-breadcrumb {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+}
+
+.app-breadcrumb .ant-breadcrumb-link {
+  cursor: default;
+}
+
+.app-breadcrumb .ant-breadcrumb-link:hover {
+  cursor: pointer;
+}
+
+.app-header-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.app-content {
+  padding: var(--spacing-lg);
+  max-width: 100%;
+  width: 100%;
+}
+
+/* 大屏（≥1600px）：居中 + 上限 */
+@media (min-width: 1600px) {
+  .app-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px 32px;
+  }
+}
+
+/* 中屏（1200-1599px）：充分利用 */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .app-content {
+    padding: 20px 24px;
+  }
+}
+
+/* ========== Page ========== */
+.page-container {
+  /* padding handled by app-content */
+}
+
+.page-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs);
+  line-height: 1.3;
+}
+
+.page-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+/* ========== KPI Stats（自定义组件，非 antd） ========== */
+.kpi-stat {
+  padding: var(--spacing-md);
+}
+
+.kpi-stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.kpi-stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.kpi-stat-change {
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.kpi-stat-change.up { color: var(--success); }
+.kpi-stat-change.down { color: var(--error); }
+
+/* ========== Markdown / Streaming（自定义组件，非 antd） ========== */
+.streaming-content {
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.streaming-content h1 { font-size: 1.4em; font-weight: var(--font-weight-semibold); margin: 20px 0 8px; color: var(--text-primary); }
+.streaming-content h2 { font-size: 1.2em; font-weight: var(--font-weight-semibold); margin: 16px 0 8px; color: var(--text-primary); }
+.streaming-content h3 { font-size: 1.05em; font-weight: var(--font-weight-semibold); margin: 12px 0 6px; color: var(--text-primary); }
+.streaming-content p { margin: 8px 0; line-height: 1.8; }
+.streaming-content ul, .streaming-content ol { padding-left: 22px; margin: 8px 0; }
+.streaming-content li { margin: 4px 0; line-height: 1.7; }
+.streaming-content table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: var(--font-size-xs); }
+.streaming-content th, .streaming-content td {
+  border: 1px solid var(--border-default); padding: 6px 10px; text-align: left;
+}
+.streaming-content th { background: var(--bg-tertiary); font-weight: var(--font-weight-medium); }
+.streaming-content code {
+  background: var(--bg-tertiary); padding: 2px 5px; border-radius: 3px;
+  font-size: 0.88em; font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.streaming-content blockquote {
+  border-left: 3px solid var(--brand-500); padding: 8px 12px; margin: 8px 0;
+  color: var(--text-secondary); background: var(--brand-50); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.streaming-content strong { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+
+.markdown-preview {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+.markdown-preview h1, .markdown-preview h2, .markdown-preview h3 { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+.markdown-preview p { line-height: 1.8; }
+.markdown-preview table { border-collapse: collapse; width: 100%; font-size: var(--font-size-xs); }
+.markdown-preview th, .markdown-preview td { border: 1px solid var(--border-default); padding: 6px 10px; }
+.markdown-preview th { background: var(--bg-tertiary); }
+.markdown-preview code { background: var(--bg-tertiary); padding: 2px 5px; border-radius: 3px; font-size: 0.88em; }
+
+/* Streaming cursor */
+.stream-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--brand-500);
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+/* ========== Responsive ========== */
+/* 移动端：Sider 不渲染（由 Drawer 替代），主区域无左边距 */
+.app-main.mobile {
+  margin-left: 0;
+}
+
+/* 移动端抽屉导航样式 */
+.app-mobile-drawer .ant-drawer-body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-mobile-drawer .app-sider-logo {
+  flex-shrink: 0;
+}
+
+.app-mobile-drawer .app-menu {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: var(--spacing-md);
+  }
+  .ant-col {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+/* ========== Utility ========== */
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-error { color: var(--error); }
+.mono { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.9em; }
+
+.section-gap { margin-bottom: var(--spacing-lg); }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+
+/* ========== Card 垂直间距安全网 ==========
+   确保同一容器内相邻 Card 之间至少有 16px 垂直间距。
+   通用规则 .ant-card + .ant-card 覆盖所有容器（Col、page-container、div 等），
+   不影响 Row gutter 管理的网格布局（Row > Col > Card 结构中 Card 不是相邻兄弟）。
+   注：使用硬编码 16px 而非 var(--spacing-md)，因为 Ant Design CSS-in-JS
+   会将 --spacing-md 覆盖为 12px，导致间距偏小。
+   margin-top 与已有 marginBottom 内联样式通过 margin collapsing 协同（取较大值）。 */
+.ant-card + .ant-card {
+  margin-top: 16px;
+}
+
+/* ========== Tailwind 备用工具类 ========== */
+   作为安全网（unlayered，优先级高于 @layer base 的 reset）：
+   - 若 Tailwind 正常生成同名类，两者值相同不冲突
+   - 若 Tailwind 未生成，这些备用类提供基础间距/布局能力
+   4px 间距基准：1=4px 2=8px 3=12px 4=16px 5=20px 6=24px */
+
+/* Margin */
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-5 { margin-bottom: 20px; }
+.mb-6 { margin-bottom: 24px; }
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; }
+.mt-5 { margin-top: 20px; }
+.mt-6 { margin-top: 24px; }
+.my-2 { margin-top: 8px; margin-bottom: 8px; }
+.my-3 { margin-top: 12px; margin-bottom: 12px; }
+
+/* Padding */
+.py-2 { padding-top: 8px; padding-bottom: 8px; }
+.py-6 { padding-top: 24px; padding-bottom: 24px; }
+.px-3 { padding-left: 12px; padding-right: 12px; }
+.p-4 { padding: 16px; }
+
+/* Flexbox */
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1; }
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+
+/* Text */
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 13px; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.block { display: block; }
+
+/* Border */
+.border { border: 1px solid var(--border-light); }
+.rounded-md { border-radius: 6px; }
+.overflow-auto { overflow: auto; }

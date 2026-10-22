@@ -33,9 +33,27 @@ pip install -r requirements.txt
 
 ### 步骤3：运行应用
 
+当前架构为 FastAPI 后端 + React 前端，需分别启动两个服务。
+
+启动后端（在 `backend/` 目录下）：
+
 ```bash
-streamlit run geo_tool.py
+cd backend
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+启动前端（在 `frontend/` 目录下，另开一个终端）：
+
+```bash
+cd frontend
+npm install   # 首次运行需要安装依赖
+npm run dev
+```
+
+启动后：
+- 前端界面：`http://localhost:5173`
+- 后端 API：`http://localhost:8000/api/v1`
+- 交互式文档（Swagger UI）：`http://localhost:8000/docs`
 
 ### 步骤4：配置GitHub账号
 

@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: geo-backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/geo_app.db
+      - UPLOAD_DIR=/app/uploads
+      - KNOWLEDGE_DIR=/app/knowledge_base
+      # API_KEY: 生产环境必须通过环境变量设置强密码；为空则不启用认证（仅开发用）
+      - API_KEY=${API_KEY:-}
+      # CORS: 默认仅允许本地开发源；生产环境必须改为具体域名白名单
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000,http://localhost}
+      # 加密密钥：生产环境必须设置（用于凭据加密）；留空则自动生成（重启后旧密文不可解密）
+      - GEO_ENCRYPTION_KEY=${GEO_ENCRYPTION_KEY:-}
+    volumes:
+      - backend_data:/app/data
+      - uploads:/app/uploads
+      - knowledge_data:/app/knowledge_base
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: '1.5'
+    # 日志驱动配置
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  frontend:
+    build: ./frontend
+    container_name: geo-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:${BACKEND_PORT:-8000}/api/v1
+      - VITE_API_KEY=${API_KEY:-}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  backend_data:
+  uploads:
+  knowledge_data:

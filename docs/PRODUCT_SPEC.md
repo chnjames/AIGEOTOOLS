@@ -63,16 +63,25 @@
 
 ## 🤖 AI 技术亮点
 
-**技术架构**：用户 UI（Streamlit）→ 业务逻辑层 → AI 模型层（7 个模型）→ 数据存储（SQLite）
+**技术架构**：
+
+- **前端**：React 18 + TypeScript + Ant Design 5 + Vite（构建工具）+ Zustand（状态管理）+ ECharts（图表）+ Axios（HTTP 客户端）
+- **后端**：FastAPI + SQLAlchemy 2.0 (async) + Alembic（数据库迁移）+ Pydantic v2 + httpx（异步 HTTP）
+- **数据库**：SQLite（默认，可切换 PostgreSQL）
+- **向量库**：ChromaDB（嵌入式持久化，知识库语义检索）
+- **LLM 集成**：LangChain（DeepSeek、OpenAI、Groq、通义千问、Kimi、豆包、文心一言等 7 个模型）
+- **通信**：REST API（JSON）+ SSE（Server-Sent Events，用于 LLM 流式生成与进度通知）
+
+整体链路：React 前端 → FastAPI REST API / SSE → 业务逻辑层（Services）→ AI 模型层（LangChain 多模型调度）→ 数据存储（SQLAlchemy ORM → SQLite/PostgreSQL）+ ChromaDB 向量库
 
 **核心技术**：
 
-1. **多模型智能调度**：DeepSeek、OpenAI GPT-4、通义千问等 7 个模型，场景化选择 + 成本优化
-2. **RAG + 自定义 Prompt**：20 个平台专属 Prompt 模板 + 企业知识库增强
+1. **多模型智能调度**：DeepSeek、OpenAI GPT-4、通义千问、Groq、Kimi、豆包、文心一言等 7 个模型，场景化选择 + 成本优化
+2. **RAG + 自定义 Prompt**：20 个平台专属 Prompt 模板 + 企业知识库（ChromaDB 向量检索）增强
 3. **E-E-A-T 质量评分**：经验、专业性、权威性、可信度四维评分
 4. **事实密度增强**：自动检测空洞内容 + 智能补充数据支撑
 5. **语义扩展**：关键词变体生成（同义词、问句、场景） + 话题集群
-6. **AI 提及率验证**：自动向 7 个 AI 平台提问 + 数据可视化
+6. **AI 提及率验证**：自动向多个 AI 平台提问 + 数据可视化
 
 ---
 
